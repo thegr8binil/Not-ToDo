@@ -1,101 +1,264 @@
-import Image from "next/image";
+'use client'
+import { AnimatePresence, useAnimate, usePresence } from "framer-motion";
+import React, { useEffect, useState } from "react";
+import { FiClock, FiPlus, FiTrash2 } from "react-icons/fi";
+import { motion } from "framer-motion";
 
-export default function Home() {
+export default function VanishList  () {
+  const [todos, setTodos] = useState([
+    {
+      id: 1,
+      text: "Exercise",
+      checked: false,
+      time: "30 mins",
+    },
+    {
+      id: 2,
+      text: "Study for exam",
+      checked: false,
+      time: "4 hrs",
+    },
+    {
+      id: 3,
+      text: "Wash Car",
+      checked: true,
+      time: "12 hrs",
+    },
+    {
+      id: 4,
+      text: "Trade landon section",
+      checked: false,
+      time: "1 hrs",
+    },
+  ]);
+
+  const handleCheck = (id) => {
+    setTodos((pv) =>
+      pv.map((t) => (t.id === id ? { ...t, checked: !t.checked } : t))
+    );
+  };
+
+  const removeElement = (id) => {
+    setTodos((pv) => pv.filter((t) => t.id !== id));
+  };
+
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
+    <section
+      className="min-h-screen bg-zinc-950 py-24"
+      style={{
+        backgroundImage: `url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32' width='32' height='32' fill='none' stroke-width='2' stroke='%2318181b'%3e%3cpath d='M0 .5H31.5V32'/%3e%3c/svg%3e")`,
+      }}
+    >
+      <div className="mx-auto w-full max-w-xl px-4">
+        <Header />
+        <Todos
+          removeElement={removeElement}
+          todos={todos}
+          handleCheck={handleCheck}
         />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              app/page.js
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+      </div>
+      <Form setTodos={setTodos} />
+    </section>
+  );
+};
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+const Header = () => {
+  return (
+    <div className="mb-6">
+      <h1 className="text-xl font-medium text-white">Good morning! ☀️</h1>
+      <p className="text-zinc-400">Let's see what we've got to do today.</p>
     </div>
   );
-}
+};
+
+const Form = ({ setTodos }) => {
+  const [visible, setVisible] = useState(false);
+
+  const [time, setTime] = useState(15);
+  const [text, setText] = useState("");
+  const [unit, setUnit] = useState("mins");
+
+  const handleSubmit = () => {
+    if (!text.length) {
+      return;
+    }
+
+    setTodos((pv) => [
+      {
+        id: Math.random(),
+        text,
+        checked: false,
+        time: `${time} ${unit}`,
+      },
+      ...pv,
+    ]);
+
+    setTime(15);
+    setText("");
+    setUnit("mins");
+  };
+
+  return (
+    <div className="fixed bottom-6 left-1/2 w-full max-w-xl -translate-x-1/2 px-4">
+      <AnimatePresence>
+        {visible && (
+          <motion.form
+            initial={{ opacity: 0, y: 25 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 25 }}
+            onSubmit={(e) => {
+              e.preventDefault();
+              handleSubmit();
+            }}
+            className="mb-6 w-full rounded border border-zinc-700 bg-zinc-900 p-3"
+          >
+            <textarea
+              value={text}
+              onChange={(e) => setText(e.target.value)}
+              placeholder="What do you need to do?"
+              className="h-24 w-full resize-none rounded bg-zinc-900 p-3 text-sm text-zinc-50 placeholder-zinc-500 caret-zinc-50 focus:outline-0"
+            />
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-1.5">
+                <input
+                  type="number"
+                  className="w-24 rounded bg-zinc-700 px-1.5 py-1 text-sm text-zinc-50 focus:outline-0"
+                  value={time}
+                  onChange={(e) => setTime(parseInt(e.target.value))}
+                />
+                <button
+                  type="button"
+                  onClick={() => setUnit("mins")}
+                  className={`rounded px-1.5 py-1 text-xs ${unit === "mins" ? "bg-white text-zinc-950" : "bg-zinc-300/20 text-zinc-300 transition-colors hover:bg-zinc-600 hover:text-zinc-200"}`}
+                >
+                  mins
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setUnit("hrs")}
+                  className={`rounded px-1.5 py-1 text-xs ${unit === "hrs" ? "bg-white text-zinc-950" : "bg-zinc-300/20 text-zinc-300 transition-colors hover:bg-zinc-600 hover:text-zinc-200"}`}
+                >
+                  hrs
+                </button>
+              </div>
+              <button
+                type="submit"
+                className="rounded bg-indigo-600 px-1.5 py-1 text-xs text-indigo-50 transition-colors hover:bg-indigo-500"
+              >
+                Submit
+              </button>
+            </div>
+          </motion.form>
+        )}
+      </AnimatePresence>
+      <button
+        onClick={() => setVisible((pv) => !pv)}
+        className="grid w-full place-content-center rounded-full border border-zinc-700 bg-zinc-900 py-3 text-lg text-white transition-colors hover:bg-zinc-800 active:bg-zinc-900"
+      >
+        <FiPlus
+          className={`transition-transform ${visible ? "rotate-45" : "rotate-0"}`}
+        />
+      </button>
+    </div>
+  );
+};
+
+const Todos = ({ todos, handleCheck, removeElement }) => {
+  return (
+    <div className="w-full space-y-3">
+      <AnimatePresence>
+        {todos.map((t) => (
+          <Todo
+            handleCheck={handleCheck}
+            removeElement={removeElement}
+            id={t.id}
+            key={t.id}
+            checked={t.checked}
+            time={t.time}
+          >
+            {t.text}
+          </Todo>
+        ))}
+      </AnimatePresence>
+    </div>
+  );
+};
+
+const Todo = ({ removeElement, handleCheck, id, children, checked, time }) => {
+  const [isPresent, safeToRemove] = usePresence();
+  const [scope, animate] = useAnimate();
+
+  useEffect(() => {
+    if (!isPresent) {
+      const exitAnimation = async () => {
+        animate(
+          "p",
+          {
+            color: checked ? "#6ee7b7" : "#fca5a5",
+          },
+          {
+            ease: "easeIn",
+            duration: 0.125,
+          }
+        );
+        await animate(
+          scope.current,
+          {
+            scale: 1.025,
+          },
+          {
+            ease: "easeIn",
+            duration: 0.125,
+          }
+        );
+
+        await animate(
+          scope.current,
+          {
+            opacity: 0,
+            x: checked ? 24 : -24,
+          },
+          {
+            delay: 0.75,
+          }
+        );
+        safeToRemove();
+      };
+
+      exitAnimation();
+    }
+  }, [isPresent]);
+
+  return (
+    <motion.div
+      ref={scope}
+      layout
+      className="relative flex w-full items-center gap-3 rounded border border-zinc-700 bg-zinc-900 p-3"
+    >
+      <input
+        type="checkbox"
+        checked={checked}
+        onChange={() => handleCheck(id)}
+        className="size-4 accent-indigo-400"
+      />
+
+      <p
+        className={`text-white transition-colors ${checked && "text-zinc-400"}`}
+      >
+        {children}
+      </p>
+      <div className="ml-auto flex gap-1.5">
+        <div className="flex items-center gap-1.5 whitespace-nowrap rounded bg-zinc-800 px-1.5 py-1 text-xs text-zinc-400">
+          <FiClock />
+          <span>{time}</span>
+        </div>
+        <button
+          onClick={() => removeElement(id)}
+          className="rounded bg-red-300/20 px-1.5 py-1 text-xs text-red-300 transition-colors hover:bg-red-600 hover:text-red-200"
+        >
+          <FiTrash2 />
+        </button>
+      </div>
+    </motion.div>
+  );
+};
