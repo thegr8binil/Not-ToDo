@@ -1,37 +1,49 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+UI interface should be very uesr friendly easy taps and area Good UI mobile first design 
+Dashborad designs updates 
+Sore interface of admin 
+Need a place to see all stocks 
+Price of that stock total quantity with view all button 
+Total stock consumption daily, after daily stock update
+And daily stock consumption expense 
 
-## Getting Started
+Min thresolud itesm in dashboard menu only 
+Low stock items 
 
-First, run the development server:
+Min threshold purchase list and excel sheet creation in purchase voucher 
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+Provishioin inventory and vegtaible groceries entry should be separate tabs 
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Inventory and stock updation should have unit price 
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+Income expenses graphs 
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
-## Learn More
 
-To learn more about Next.js, take a look at the following resources:
+HR section 
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Hr can give a performance rating to employes 
+Monthly ratings and performtace for employes 
+Payroll generation smooth 
+Employee payment adding etc 
+Employe leaves and leave requests leave pending 
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Employe adding add account number and a upload box for IDS and all 
 
-## Deploy on Vercel
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
-# Not-ToDo
+DATA entry should be very smooth and User friendly 
+
+
+These are the updates and all 
+Also in the dashboard all overview should be there grahicaly so admin can easily identligy 
+
+Add dark mode switch 
+
+ 
+Managers and GM And outlet magners can give performance points to employees 
+Monthly performance 
+Mark for behaioru attendecen, hygiene, sales uniform, etc admin can add more performance metrics for all employes 
+
+
+
+
